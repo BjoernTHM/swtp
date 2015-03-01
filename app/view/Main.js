@@ -22,7 +22,7 @@ setInterval(function() {
         params: 'action=pull&user=' + name,
         success: function(response) {
             if (response.responseText.length > 0) 
-                chat.setHtml(response.responseText);
+                chat.setValue(response.responseText);
         }
     });
 }, 500);
@@ -35,7 +35,7 @@ input.on("keyup", function(obj, e) {
             params: 'action=push&user=' + name + '&value=' + input.getValue(),
             success: function(response) {
                 if (response.responseText.length > 0) 
-                    chat.setHtml(response.responseText);
+                    chat.setValue(response.responseText);
             }
         });
         input.setValue("");

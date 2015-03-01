@@ -4,8 +4,8 @@ if (isset($_POST['action'])) {
         file_put_contents("./chat/pull.txt", time());
     if (time() - intval(file_get_contents("./chat/pull.txt")) > 10) {
         unlink("./chat/user.txt");
-        if (file_exists("./chat/chat.txt")) 
-            file_put_contents("./chat/chat.txt", file_get_contents("./chat/chat.txt") . "<br/><br/>--------------------New Session--------------------<br/>");
+        if (file_exists("./chat/chat.txt") && strpos(file_get_contents("./chat/chat.txt"), "--------------------New Session--------------------" .  chr(10)) !== strlen(file_get_contents("./chat/chat.txt")) - strlen("--------------------New Session--------------------" . chr(10))) 
+            file_put_contents("./chat/chat.txt", file_get_contents("./chat/chat.txt") . chr(10) . chr(10) . "--------------------New Session--------------------" . chr(10));
     } 
     $action = $_POST['action'];
     if (!file_exists("./chat/chat.txt")) 
@@ -18,7 +18,7 @@ if (isset($_POST['action'])) {
             echo $file;
             break;
         case "push":
-            file_put_contents("./chat/chat.txt", $file . "<br/>[" . date("d.m.Y H:i:s") . "] " . $_POST['user'] . ": " . $_POST['value']);
+            file_put_contents("./chat/chat.txt", $file . chr(10) . "[" . date("d.m.Y H:i:s") . "] " . $_POST['user'] . ": " . $_POST['value']);
             echo $file;
             break;
         case "login":
